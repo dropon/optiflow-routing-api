@@ -15,16 +15,16 @@ import (
 	"fmt"
 )
 
-// TunnelRestrictionCode The tunnel restriction code according to ADR (European Agreement Concerning the International Carriage of Dangerous Goods by Road) depending on the load of the vehicle.  Relevant for `routing`. 
+// TunnelRestrictionCode The tunnel restriction code according to ADR (European Agreement Concerning the International Carriage of Dangerous Goods by Road) depending on the load of the vehicle.  Relevant for `routing`.
 type TunnelRestrictionCode string
 
 // List of TunnelRestrictionCode
 const (
-	NONE TunnelRestrictionCode = "NONE"
-	B TunnelRestrictionCode = "B"
-	C TunnelRestrictionCode = "C"
-	D TunnelRestrictionCode = "D"
-	E TunnelRestrictionCode = "E"
+	TUNNEL_RESTRICTION_NONE TunnelRestrictionCode = "NONE"
+	B                       TunnelRestrictionCode = "B"
+	C                       TunnelRestrictionCode = "C"
+	D                       TunnelRestrictionCode = "D"
+	E                       TunnelRestrictionCode = "E"
 )
 
 // All allowed values of TunnelRestrictionCode enum
@@ -114,4 +114,3 @@ func (v *NullableTunnelRestrictionCode) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

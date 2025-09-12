@@ -58,7 +58,7 @@ type Options struct {
 // will change when the set of required properties is changed
 func NewOptions() *Options {
 	this := Options{}
-	var trafficMode TrafficMode = REALISTIC
+	var trafficMode TrafficMode = REALISTIC_TRAFFIC_MODE
 	this.TrafficMode = &trafficMode
 	var language string = "en"
 	this.Language = &language
@@ -80,7 +80,7 @@ func NewOptions() *Options {
 // but it doesn't guarantee that properties required by API are set
 func NewOptionsWithDefaults() *Options {
 	this := Options{}
-	var trafficMode TrafficMode = REALISTIC
+	var trafficMode TrafficMode = REALISTIC_TRAFFIC_MODE
 	this.TrafficMode = &trafficMode
 	var language string = "en"
 	this.Language = &language

@@ -7,6 +7,8 @@
 
 * `SHORT` (value: `"SHORT"`)
 
+* `SHORTEST` (value: `"SHORTEST"`)
+
 * `MONETARY` (value: `"MONETARY"`)
 
 

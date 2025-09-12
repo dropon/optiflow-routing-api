@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Waypoints** | Pointer to [**[]Waypoint**](Waypoint.md) | The list of waypoints the route will be calculated for. At least two waypoints are necessary, a maximum number may apply according to your subscription. The first waypoint is the start and the last is the destination of the route. Additional intermediate waypoints are possible.  Each waypoint must either have latitude and longitude or one of the representations combinedTransport, address or place. | [optional] 
-**RouteId** | Pointer to **string** | Instead of the list of waypoints, a **routeId** from a previously calculated route or a matched track can be entered. See [here](./concepts/waypoints) for more information. | [optional] 
+**RouteId** | Pointer to **string** | Instead of the list of waypoints, a **routeId** from a previously calculated route or a matched track can be entered. See [here](./concepts/route-ids) for more information. | [optional] 
 **Driver** | Pointer to [**DriverBody**](DriverBody.md) |  | [optional] 
 
 ## Methods

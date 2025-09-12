@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Locations** | [**[]Location**](Location.md) |  | 
+**Locations** | [**[]Location**](Location.md) | The list of locations which should be taken into account for the calculation of reachable locations. | 
 
 ## Methods
 

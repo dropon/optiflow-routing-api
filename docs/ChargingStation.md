@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **CurrentType** | [**CurrentType**](CurrentType.md) |  | [default to ALTERNATING]
 **SetupTime** | Pointer to **int32** | The time to setup the connection [s]. | [optional] [default to 0]
 **KWhPrice** | Pointer to **float64** | The price of one kWh in the currency defined in **options[currency]**. | [optional] [default to 0]
-**UseServiceTimeForCharging** | Pointer to **bool** | If true, the service time can be used for charging. Will be ignored, if **serviceTime** is 0. This can have  an influence on charging optimization because the additional time needed for charging is minimized. | [optional] [default to false]
+**UseServiceTimeForCharging** | Pointer to **bool** | If true, the service time can be used for charging. This parameter will be ignored, if **serviceTime** is 0. This can have  an influence on charging optimization because the additional time needed for charging is minimized. | [optional] [default to false]
 
 ## Methods
 

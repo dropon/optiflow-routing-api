@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Index** | **int32** | The index of the waypoint in the request. | 
-**Name** | Pointer to **string** | The name of the waypoint as given in the request. This field is only present if it is not empty. | [optional] 
+**Name** | Pointer to **string** | The name of the waypoint as given in the request. This parameter is only present if it is not empty. | [optional] 
 
 ## Methods
 

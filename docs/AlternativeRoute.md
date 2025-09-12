@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **TrafficDelay** | Pointer to **int32** | The total delay due to live traffic on this alternative route [s].  This value contains the sum of all traffic events on this alternative route and  will be non-zero only if **options[trafficMode]&#x3D;REALISTIC**. See [here](./concepts/traffic-modes) for more information. | [optional] 
 **Violated** | **bool** | If the alternative route cannot be calculated for the given vehicle the resulting alternative route is marked as violated. | 
 **Polyline** | Pointer to **string** | The polyline of the alternative route in the format specified by **options[polylineFormat]**. | [optional] 
-**RouteId** | Pointer to **string** | The ID of the alternative route. | [optional] 
+**RouteId** | Pointer to **string** | The ID of the alternative route. It is valid for 12 hours. | [optional] 
 
 ## Methods
 

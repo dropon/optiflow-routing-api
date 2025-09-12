@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **TravelTime** | **int32** | The travel time for the route [s]. | 
 **TrafficDelay** | Pointer to **int32** | The total delay due to live traffic on the route [s].  This value contains the sum of all traffic events on the route and will be non-zero only if **options[trafficMode]&#x3D;REALISTIC**. See [here](./concepts/traffic-modes) for more information. | [optional] 
 **Violated** | **bool** | If there is no valid route but the resulting route can be calculated by using actually prohibited roads, the route is marked as violated. When requesting _VIOLATION_EVENTS_ there is a corresponding violation event containing the position, time and the vehicle property in question. See [here](./concepts/violations) for more information. | 
-**RouteId** | Pointer to **string** | The ID of the calculated route. | [optional] 
+**RouteId** | Pointer to **string** | The ID of the calculated route. It is valid for 12 hours. | [optional] 
 **Legs** | Pointer to [**[]Leg**](Leg.md) | The legs of the route. | [optional] 
 **Toll** | Pointer to [**Toll**](Toll.md) |  | [optional] 
 **Polyline** | Pointer to **string** | The polyline of the route in the format specified by **options[polylineFormat]**. | [optional] 

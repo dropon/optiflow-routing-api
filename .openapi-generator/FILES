@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 .travis.yml
 README.md
 api/openapi.yaml
@@ -54,7 +53,9 @@ docs/Iso14083EmissionFactorsVersion.md
 docs/Leg.md
 docs/Location.md
 docs/Locations.md
+docs/LowEmissionZoneApprovals.md
 docs/LowEmissionZoneEvent.md
+docs/LowEmissionZoneExemptions.md
 docs/LowEmissionZoneTypes.md
 docs/ManeuverEvent.md
 docs/ManeuverType.md
@@ -169,7 +170,9 @@ model_iso14083_emission_factors_version.go
 model_leg.go
 model_location.go
 model_locations.go
+model_low_emission_zone_approvals.go
 model_low_emission_zone_event.go
+model_low_emission_zone_exemptions.go
 model_low_emission_zone_types.go
 model_maneuver_event.go
 model_maneuver_type.go

@@ -33,6 +33,8 @@
 
 * `AU_AB_TRIPLE_HML` (value: `"AU_AB_TRIPLE_HML"`)
 
+* `GENERAL_TRUCK_ROUTES` (value: `"GENERAL_TRUCK_ROUTES"`)
+
 * `NONE` (value: `"NONE"`)
 
 

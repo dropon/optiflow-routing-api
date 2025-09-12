@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **WorkingHoursPreset** | [**WorkingHoursPreset**](WorkingHoursPreset.md) |  | 
 **WorkLogbook** | Pointer to [**WorkLogbook**](WorkLogbook.md) |  | [optional] 
-**UseTimeOnCombinedTransportForRecreation** | Pointer to **bool** | If true, the time on a combined transport, e.g. on a ferry, can be used for recreation.  That means that a break or a rest can be scheduled when traveling on a ferry or by rail. | [optional] [default to false]
+**UseTimeOnCombinedTransportForRecreation** | Pointer to **bool** | If true, the time on a combined transport, e.g. on a ferry, can be used for recreation.  That means that a break or a rest can be scheduled when traveling on a ferry or by rail. As breaks and daily rests may be split to match the time of the combined transport, we recommend to additionally request _COMBINED_TRANSPORT_EVENTS_ when _SCHEDULE_EVENTS_ or _SCHEDULE_EVENTS_WITH_DRIVING_ are requested. | [optional] [default to false]
 
 ## Methods
 

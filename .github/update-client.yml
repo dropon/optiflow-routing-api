@@ -81,7 +81,7 @@ jobs:
           git config user.name "dropon-bot"
           git config user.email "bot@dropon.io"
           git add .
-          git commit -m "Regenerate Go client from OpenAPI spec" || echo "No changes to commit"
+          git commit -m "Regenerate Go routing client from OpenAPI spec" || echo "No changes to commit"
 
       - name: Check if something changed with git diff
         id: changes
@@ -119,7 +119,7 @@ jobs:
         if: steps.changes.outputs.diff_count != '0'
         run: |
           WEBHOOK_URL="https://hooks.slack.com/services/${{ vars.SLACK_CHANNEL }}/${{ vars.SLACK_CHANNEL_ID }}/${{ secrets.SLACK_SECRET }}"
-          MESSAGE="Heads up, new optiflow client version available. Go to https://github.com/dropon/optiflow-optimsation-client/tags to create a release from the generated tag. Don't forget to update the go.mod file from base and redeploy."
+          MESSAGE="Heads up, new optiflow routing client version available. Go to https://github.com/dropon/optiflow-routing-api/tags to create a release from the generated tag. Don't forget to update the go.mod file from base and redeploy."
 
           curl -X POST --data-urlencode "payload={\"text\": \"$MESSAGE\", \"channel\": \"#it_builds\", \"username\": \"deploy-bot\", \"icon_emoji\": \":monkey_face:\"}" "$WEBHOOK_URL"
 

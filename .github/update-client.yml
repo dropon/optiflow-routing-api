@@ -51,6 +51,7 @@ jobs:
           git cherry-pick --no-commit 26880577c9173f09487dd8b675f06a4ed97893a8 || echo "Cherry-pick failed or already applied"
           git cherry-pick --no-commit 8401a1f8f5a3220d7309bb8cbb0ec5b7c7a4132f || echo "Cherry-pick failed or already applied"
           git cherry-pick --no-commit 0ae0f1b507ecb8d964c1abe56130ac0033b6783c || echo "Cherry-pick failed or already applied"
+          git cherry-pick --no-commit 579b3bb9bd715a40e9d0921b8586934ed994f42e || echo "Cherry-pick failed or already applied"
           git add . 
           git commit -m "fix: resolve name clashes"
 

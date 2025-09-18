@@ -1,0 +1,127 @@
+name: Update Go Client from OpenAPI Spec
+
+on:
+  schedule:
+    - cron: "0 * * * *" # runs hourly
+  workflow_dispatch: # allows manual run
+
+jobs:
+  regenerate-client:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Fetch all branches
+        run: git fetch -a
+
+      - name: Switch to main and pull
+        run: |
+          git checkout main 
+          git pull
+
+      - name: Install OpenAPI Generator CLI via NPM
+        run: npm install -g @openapitools/openapi-generator-cli
+
+      - name: Remove previously generated client
+        run: rm -rf *
+
+      - name: Generate Go client from OpenAPI spec
+        run: |
+          openapi-generator-cli generate \
+            -g go \
+            -i https://api.myptv.com/meta/services/routing/v1/openapi.json \
+            -o .
+
+      - name: Cherry-pick required commits
+        run: |
+          git config user.name "dropon-bot"
+          git config user.email "bot@dropon.io"
+          git add .
+          git commit -m "chore: add new client version"
+          git cherry-pick --no-commit d0aa5e9b879be9c3643f31292859ce59ae2f59ab --strategy-option theirs || echo "Cherry-pick failed or already applied"
+          git cherry-pick --no-commit 9233211bbc37fdf600711cdc6a3f060dabd69bd1 --strategy-option theirs || echo "Cherry-pick failed or already applied"
+          rm -rf test
+          git add . 
+          git commit -m "fix: resolve name clashes"
+
+      - name: Extract Go version from go.mod
+        id: go_version
+        run: |
+          VERSION=$(grep '^go ' go.mod | cut -d' ' -f2)
+          echo "Using Go version: $VERSION"
+          echo "go_version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Set up Go from go.mod
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ steps.go_version.outputs.go_version }}
+
+      - name: Typecheck Go client
+        run: go build -o /dev/null ./...
+
+      - name: Notify Slack on build failure
+        if: failure()
+        run: |
+          WEBHOOK_URL="https://hooks.slack.com/services/${{ vars.SLACK_CHANNEL }}/${{ vars.SLACK_CHANNEL_ID }}/${{ secrets.SLACK_SECRET }}"
+          MESSAGE=":rotating_light: *Go build failed for routing client!* Please check the logs in GitHub Actions. :boom:"
+          curl -X POST --data-urlencode "payload={\"text\": \"$MESSAGE\", \"channel\": \"#it_builds\", \"username\": \"deploy-bot\", \"icon_emoji\": \":monkey_face:\"}" "$WEBHOOK_URL"
+
+      - name: Commit regenerated client
+        run: |
+          git config user.name "dropon-bot"
+          git config user.email "bot@dropon.io"
+          git add .
+          git commit -m "Regenerate Go client from OpenAPI spec" || echo "No changes to commit"
+
+      - name: Check if something changed with git diff
+        id: changes
+        run: |
+          DIFF_COUNT=$(git diff origin/main..main | wc -l | xargs)
+          echo "Count of different lines: $DIFF_COUNT"
+          echo "diff_count=$DIFF_COUNT" >> $GITHUB_OUTPUT
+
+      - name: Bump patch version and create new tag
+        if: steps.changes.outputs.diff_count != '0'
+        id: bump_tag
+        run: |
+          git fetch --tags
+
+          # Get latest tag matching vX.Y.Z format
+          LATEST_TAG=$(git tag --list 'v*' --sort=-v:refname | head -n 1)
+          echo "Latest tag: $LATEST_TAG"
+
+          # Parse version components
+          VERSION=${LATEST_TAG#v}               # Strip the 'v'
+          MAJOR=$(echo "$VERSION" | cut -d. -f1)
+          MINOR=$(echo "$VERSION" | cut -d. -f2)
+          PATCH=$(echo "$VERSION" | cut -d. -f3)
+
+          # Bump patch
+          NEW_PATCH=$((PATCH + 1))
+          NEW_TAG="v$MAJOR.$MINOR.$NEW_PATCH"
+          echo "New tag will be: $NEW_TAG"
+
+          # Create and push the new tag
+          git tag "$NEW_TAG"
+          git push origin "$NEW_TAG"
+
+      - name: Notify Slack about new version
+        if: steps.changes.outputs.diff_count != '0'
+        run: |
+          WEBHOOK_URL="https://hooks.slack.com/services/${{ vars.SLACK_CHANNEL }}/${{ vars.SLACK_CHANNEL_ID }}/${{ secrets.SLACK_SECRET }}"
+          MESSAGE="Heads up, new routing client version available. Go to https://github.com/dropon/optiflow-optimsation-client/tags to create a release from the generated tag. Don't forget to update the go.mod file from base and redeploy."
+
+          curl -X POST --data-urlencode "payload={\"text\": \"$MESSAGE\", \"channel\": \"#it_builds\", \"username\": \"deploy-bot\", \"icon_emoji\": \":monkey_face:\"}" "$WEBHOOK_URL"
+
+      - name: Force push to main
+        if: steps.changes.outputs.diff_count != '0'
+        run: git push origin main --force

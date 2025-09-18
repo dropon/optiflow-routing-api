@@ -47,8 +47,10 @@ jobs:
           git config user.email "bot@dropon.io"
           git add .
           git commit -m "chore: add new client version"
-          git cherry-pick --no-commit d0aa5e9b879be9c3643f31292859ce59ae2f59ab --strategy-option theirs || echo "Cherry-pick failed or already applied"
-          git cherry-pick --no-commit 9233211bbc37fdf600711cdc6a3f060dabd69bd1 --strategy-option theirs || echo "Cherry-pick failed or already applied"
+          git cherry-pick --no-commit 6307bffbd38b5d5d8ed0c6d4d2a63b2077ab2b2f --strategy-option theirs || echo "Cherry-pick failed or already applied"
+          git cherry-pick --no-commit 26880577c9173f09487dd8b675f06a4ed97893a8 --strategy-option theirs || echo "Cherry-pick failed or already applied"
+          git cherry-pick --no-commit 8401a1f8f5a3220d7309bb8cbb0ec5b7c7a4132f --strategy-option theirs || echo "Cherry-pick failed or already applied"
+          git cherry-pick --no-commit 043383670aa47713714653771ff3643f46af89c7 --strategy-option theirs || echo "Cherry-pick failed or already applied"
           rm -rf test
           git add . 
           git commit -m "fix: resolve name clashes"

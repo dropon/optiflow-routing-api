@@ -7656,7 +7656,7 @@ components:
       type: integer
     ChargingStation:
       description: |
-        Defines the charging capabilities available the a waypoint.
+        Defines the charging capabilities available at a waypoint.
       example:
         useServiceTimeForCharging: false
         currentType: DIRECT

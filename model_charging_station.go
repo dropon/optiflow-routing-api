@@ -19,7 +19,7 @@ import (
 // checks if the ChargingStation type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ChargingStation{}
 
-// ChargingStation Defines the charging capabilities available the a waypoint. 
+// ChargingStation Defines the charging capabilities available at a waypoint. 
 type ChargingStation struct {
 	// The power delivered by the charging station [kW].
 	Power int32 `json:"power"`
